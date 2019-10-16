@@ -13,7 +13,7 @@ import csv
 import os
 
 
-def recupeLesTirages():
+def recupeLesTirages():# à parametrer !!!
     file = open("resultat.csv", "w")
     writer = csv.writer(file)
 
