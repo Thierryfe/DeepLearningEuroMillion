@@ -11,13 +11,13 @@ import csv
 import xlrd
 import csv
 import os
+import datetime
 
-
-def recupeLesTirages():
-    file = open("resultat.csv", "w")
+def parsingAllTirages(quiet=false,annee = date.year+1,nomDuFichier = "tirages.csv"):
+    file = open(nomDuFichier, "w")
     writer = csv.writer(file)
 
-    for i in range(2004, 2020):
+    for i in range(2004, annee):
         fname = 'euromillions-' + str(i) + '.csv'
 
         with open(fname, 'r') as f:
@@ -27,24 +27,34 @@ def recupeLesTirages():
                 if (row[0] == 'Date'):
                     tmp = 1
                 if (tmp == 2):
-                    print(int(float(row[1])), int(float(row[2])), int(float(row[3])), int(float(row[4])), int(float(row[5])), int(float(row[6])), int(float(row[7])))
-                    writer.writerow([row[1], row[2], row[3], row[4], row[5], row[6], row[7]])
+                    if not(quiet):
+                     log(int(float(row[1])), int(float(row[2])), int(float(row[3])), int(float(row[4])), int(float(row[5])), int(float(row[6])), int(float(row[7]))) #retourne en log les resultats
+                    writer.writerow(int(float(row[1])), int(float(row[2])), int(float(row[3])), int(float(row[4])), int(float(row[5])), int(float(row[6])), int(float(row[7]))) #ecrit les donnees  dans un fichier
 
                 if (tmp == 1):
                     tmp = 2
 
-def convertXLStoCSV():
 
-    # converti les fichiers xls en csv
+def convertXLStoCSV(cheminXLS = "donneeXLS", cheminCSV = "donneeCSV", annee=date.year+1):
 
-    for i in range(2004, 2020):
-        fname = 'euromillions-' + str(i) + '.xls'
-        wb = xlrd.open_workbook(fname)
-        sh = wb.sheet_by_index(0)
-        # creer le fichier 'euromillions-2004.csv'
-        your_csv_file = open('euromillions-' + str(i) + '.csv', 'w')
-        wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
-        for rownum in range(sh.nrows):
-            wr.writerow(sh.row_values(rownum))
+        try:
+            os.mkdir(cheminXLS)
+        except:
+            print('dossier '++' déjà éxistant')
 
-        your_csv_file.close()
+        try:
+            os.mkdir(cheminCSV)
+        except:
+            print('dossier '++' déjà éxistant')
+
+        for i in range(2004,annee):
+            fname = 'euromillions-' + str(i) + '.xls'
+            wb = xlrd.open_workbook(cheminXLS+fname)
+            sh = wb.sheet_by_index(0)
+            # creer le fichier 'euromillions-2004.csv'
+            your_csv_file = open(cheminCSV+'/euromillions-' + str(i) + '.csv', 'w')
+            wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
+            for rownum in range(sh.nrows):
+                wr.writerow(sh.row_values(rownum))
+
+            your_csv_file.close()
