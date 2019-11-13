@@ -13,6 +13,12 @@ import csv
 import datetime
 from urllib.request import urlretrieve
 from urllib.request import urlopen
+from bs4 import BeautifulSoup as soup
+
+lien_par_defaut = "http://www.lottology.com/europe/euromillions/?do=past-draws-archive"
+#data_dir = "/home/etudiant/Téléchargements/euromilions results xls/csv"
+data_dir = "/home/etudiant/Documents/DataTirage/dataCSV"
+
 
 def dowloadFile(anne_de_debut=2004,anne_de_fin=2005,url="http://www.lottology.com/europe/euromillions/?do=past-draws-archive&tab=&as=XLS&year="):
     pathData = os.path.expanduser("~") + "/Documents/DataTirage"
@@ -78,8 +84,8 @@ def checkUpdate(url=lien_par_defaut):
     return tableau_de_dates
 
 
-def update(tableau_de_dates=None, url=lien_par_defaut):
-    tableau_de_dates = chekUpdate()  # pour mettre à jour le tableau des dates mieux que passer un tableau de dates au parametres
+def update( url=lien_par_defaut):
+    tableau_de_dates = checkUpdate()  # pour mettre à jour le tableau des dates mieux que passer un tableau de dates au parametres
     if len(tableau_de_dates) > 0:  # si on a des dates manquantes
         # recuperer la page web
         uClient = urlopen(url)
@@ -109,3 +115,5 @@ def update(tableau_de_dates=None, url=lien_par_defaut):
     else:
         print("le fichier de l'année courante est à jour, il n'y a pas de nouveaux tirages. \n")
 
+
+update()
