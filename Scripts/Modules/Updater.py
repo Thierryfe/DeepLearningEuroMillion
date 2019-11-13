@@ -13,7 +13,7 @@ import csv
 from urllib.request import urlretrieve
 
 
-def dowloadFile(anne_de_debut=2004,anne_de_fin=2005):
+def dowloadFile(anne_de_debut=2004,anne_de_fin=2005,url="http://www.lottology.com/europe/euromillions/?do=past-draws-archive&tab=&as=XLS&year="):
     pathData = os.path.expanduser("~") + "/Documents/DataTirage"
     pathFilesXLS = pathData + "/dataXLS"
     if not (os.path.isdir(pathFilesXLS)):
@@ -23,7 +23,7 @@ def dowloadFile(anne_de_debut=2004,anne_de_fin=2005):
         fname = "euromillions_" + str(i) + ".xls"
         if not (os.path.isfile(pathFilesXLS + "/" + fname)):
             urlretrieve(
-                "http://www.lottology.com/europe/euromillions/?do=past-draws-archive&tab=&as=XLS&year=" + str(i) + " ",
+                url + str(i) + " ",
                 "" + pathFilesXLS + '/' + fname)
     convertXLStoCSV(pathData,pathFilesXLS,anne_de_debut,anne_de_fin)
                 #wget.download("http://www.lottology.com/europe/euromillions/?do=past-draws-archive&tab=&as=XLS&year="+str(i))
