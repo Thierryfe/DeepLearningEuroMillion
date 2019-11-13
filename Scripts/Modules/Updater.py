@@ -26,8 +26,6 @@ def dowloadFile(anne_de_debut=2004,anne_de_fin=2005,url="http://www.lottology.co
                 url + str(i) + " ",
                 "" + pathFilesXLS + '/' + fname)
     convertXLStoCSV(pathData,pathFilesXLS,anne_de_debut,anne_de_fin)
-                #wget.download("http://www.lottology.com/europe/euromillions/?do=past-draws-archive&tab=&as=XLS&year="+str(i))
-                #os.system( "wget 'http://www.lottology.com/europe/euromillions/?do=past-draws-archive&tab=&as=XLS&year="+str(i)+"' -O xls/"+fname+"  ")
 
 def convertXLStoCSV(pathData,pathDataXLS, anne_de_debut,anne_de_fin):
     pathDataCSV = pathData + "/dataCSV"
