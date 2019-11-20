@@ -6,45 +6,28 @@ Description :
 Script ayant pour but de récuperer les données et les mettres dans un format exploitable par l'application
 Developpeur :
 '''
-
+import numpy as np
+import os.path
 import csv
-import xlrd
-import csv
-import os
 
-
-def recupeLesTirages():# à parametrer !!!
-    file = open("resultat.csv", "w")
-    writer = csv.writer(file)
-
-    for i in range(2004, 2020):
-        fname = 'euromillions-' + str(i) + '.csv'
-
-        with open(fname, 'r') as f:
+def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2005):
+    resultat = np.matrix([[]],int)
+    pathDataCSV = os.path.expanduser("~") + "/Documents/DataTirage" + "/dataCSV"
+    countTurnOne = 1
+    for i in range(annee_de_debut, annee_de_fin + 1):
+        with open(pathDataCSV + '/euromillions_' + str(i) + '.csv', 'r') as f:
             reader = csv.reader(f)
-            tmp = 0
             for row in reader:
-                if (row[0] == 'Date'):
-                    tmp = 1
-                if (tmp == 2):
-                    print(int(float(row[1])), int(float(row[2])), int(float(row[3])), int(float(row[4])), int(float(row[5])), int(float(row[6])), int(float(row[7])))
-                    writer.writerow([row[1], row[2], row[3], row[4], row[5], row[6], row[7]])
 
-                if (tmp == 1):
-                    tmp = 2
+                rowNumPy = np.matrix( [ [ int(row[1]), int(row[2]),int(row[3]),int(row[4]),int(row[5]),int(row[6]),int(row[7]) ] ] )
 
-def convertXLStoCSV():
+                if (countTurnOne==1):
 
-    # converti les fichiers xls en csv
+                    resultat = np.concatenate((resultat, rowNumPy), axis=1)
+                    countTurnOne+=1
+                else:
+                    resultat = np.concatenate((resultat, rowNumPy), axis=0)
 
-    for i in range(2004, 2020):
-        fname = 'euromillions-' + str(i) + '.xls'
-        wb = xlrd.open_workbook(fname)
-        sh = wb.sheet_by_index(0)
-        # creer le fichier 'euromillions-2004.csv'
-        your_csv_file = open('euromillions-' + str(i) + '.csv', 'w')
-        wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
-        for rownum in range(sh.nrows):
-            wr.writerow(sh.row_values(rownum))
+    return resultat
 
-        your_csv_file.close()
+print(setDataForTensorflow())
