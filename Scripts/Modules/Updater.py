@@ -39,6 +39,7 @@ def downloadFile(annee_de_debut=2004,annee_de_fin=2005,url="http://www.lottology
             print("pas de tirages presents pour annee_de_debut et annee_de_fin")
     else:
         print("annee_de_debut doit etre anterieure a annee_de_fin")
+
 def convertXLStoCSV(pathData,pathDataXLS, anne_de_debut,anne_de_fin):
     pathDataCSV = pathData + "/dataCSV"
     if not(os.path.isdir(pathDataCSV)):
