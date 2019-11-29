@@ -10,7 +10,7 @@ import numpy as np
 import os.path
 import csv
 
-def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2005):
+def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2019):
     resultat = np.matrix([[]],int)
     pathDataCSV = os.path.expanduser("~") + "/Documents/DataTirage" + "/dataCSV"
     countTurnOne = 1
@@ -30,4 +30,4 @@ def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2005):
 
     return resultat
 
-print(setDataForTensorflow())
+#print(setDataForTensorflow())

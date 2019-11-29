@@ -8,37 +8,35 @@ Developpeur :
 
 import logging
 import datetime
+import os
 
 
 def writeLog(nom_fonction, niveau, message):
-    #writeLog.id += 1
-    print(writeLog.id)
-    date = datetime.date.today()
-    filename = str(date) + "_log" + str(writeLog.id+1)
+
+    try:
+        os.mkdir("logs")
+        date = datetime.date.today()
+        seconde = datetime.datetime.now().time().minute
+        filename = "logs/" + str(date) + "_log" + str(seconde)
+    except FileExistsError:
+        date = datetime.date.today()
+        seconde = datetime.datetime.now().time()
+        filename = "logs/" + str(date) + "_log" + str(seconde)
+
     if niveau == "WARNING":
+        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
         logging.warning(nom_fonction + " " +message)
-        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
     elif niveau == "DEBUG":
+        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
         logging.debug(nom_fonction + " " +message)
-        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
     elif niveau == "INFO":
+        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
         logging.info(nom_fonction + " " +message)
-        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
     elif niveau == "ERROR":
+        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
         logging.error(nom_fonction + " " +message)
-        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
     elif niveau == "CRITICAL":
-        logging.critical(nom_fonction + " " +message)
         logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
+        logging.critical(nom_fonction + " " +message)
     else:
-        print(niveau + " n'est pas un niveau valide")
-
-
-
-
-#writeLog.id=0
-
-
-#writeLog("testfunction", "niiii", "testMessage")
-#writeLog("testfunction", "WARNING", "testMessage")
-
+        writeLog("Logs.writeLog()","ERROR",niveau + " n'est pas un niveau valide")
