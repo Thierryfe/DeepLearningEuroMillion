@@ -7,7 +7,7 @@ import os
 #---------------- Fonction de set des donnés pour keras ---------------------
 #----------------------------------------------------------------------------
 
-def csvtotabforkeras(date1,date2):
+def SetDataForKeras(date1,date2):
 #---------------------------------------
 
 	#chemin d'acces au fichier csv

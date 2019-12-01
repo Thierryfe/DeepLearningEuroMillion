@@ -20,36 +20,34 @@ def KerasSetResultat(Y):
 	for x in range(1,len(Y)) :
 
 	#Pour chaque sous tableau du tableau des tirages on crée un sous tableau tampon
-
+		tab = [0] * 62
 		for i in range(50) :
 
 		#Pour chaque tableau on initialise les valeurs à 0,
-			tab[i] = 0
+
 
 		#Ensuite on parcours pour chaque valeurs de 1 à 50  on check si la valeur i est presente dans le tirage
 			for j in range(5) :
 
 			# Si la valeur i appartient au tableau des tirages, alors on mets un 1
-
 				if(i==Y[x][j]):
 					tab[i-1]=1
 
-		for i in range(50,62) :
+		for i in range(51,62) :
 
 	# on fait pareil mais avec les nombres des 2 derniers numéros
-
-			tab[i] = 0
+			#tab[i] = 0
 			for j in range(5,7) :
 				if(i==Y[x][j]):
-					tab[i-1]=1
+					tab[i-1+50]=1
 
 	# on ajoute le tableau tampon au tableau resultat
+		#print(tab)
 		tabresultat.append(tab)
 
 #=====================================
 
 	# On le convertit au format Np array pour pouvoir l'utiliser nativement avec Keras
-
 	tabresultat=np.asarray(tabresultat)
 
 	# On retourne le nouveau ainsi construit
@@ -59,6 +57,5 @@ def KerasSetResultat(Y):
 #=====================================
 
 #finfonction
-
 #=============================================================
 #=============================================================
