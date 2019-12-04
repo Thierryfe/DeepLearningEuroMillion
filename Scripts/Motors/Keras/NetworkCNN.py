@@ -154,7 +154,7 @@ def NetworkCNN(Nb_Epoch,date1,date2):
 # ---------------------------------------------
 # permet de récupérer le tirage apres appelle de la fonction
 # ---------------------------------------------
-
+    print(W)
     return  intermediate_output[0]
 
 # ---------------------------------------------
@@ -166,6 +166,6 @@ def NetworkCNN(Nb_Epoch,date1,date2):
 # Exemple utilisation fonction , on fixe le nombre d'epo, les dates entre les tirages
 # ---------------------------------------------
 
-NetworkCNN(600,2004,2019)
+NetworkCNN(6000,2004,2019)
 
 # ---------------------------------------------

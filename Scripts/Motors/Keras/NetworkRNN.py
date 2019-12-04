@@ -112,7 +112,7 @@ def NetworkRNN(Nb_epoch,date1,date2):
 # une bonne taille est 16 permettant pour 100, d'avoir un temps d'attente correct
 # ---------------------------------------------
 
-    model.fit(M,M1, epochs=Nb_epoch, batch_size=1, verbose=2)
+    model.fit(M,M1, epochs=Nb_epoch, batch_size=16, verbose=2)
 
 # ---------------------------------------------
 # --------- RECUPERATION RESULTAT -------------
@@ -157,6 +157,6 @@ def NetworkRNN(Nb_epoch,date1,date2):
 # Exemple utilisation fonction , on fixe le nombre d'epo, les dates entre les tirages
 # ---------------------------------------------
 
-NetworkRNN(100,2004,2019)
+NetworkRNN(6000,2004,2019)
 
 # ---------------------------------------------
