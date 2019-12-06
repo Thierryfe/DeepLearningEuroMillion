@@ -11,7 +11,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath
 
 
 import Modules.KerasSetResultat as sr
-import Modules.saveAndDisplayResultKeras as sa
+import Modules.saveAndDisplayResultKerasRnn as sa
 import Modules.SetDataForKeras as sd
 
 """
