@@ -5,9 +5,21 @@ from tensorflow import keras
 from tensorflow.keras import backend as K
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten
+
+
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
+
+
+import Modules.KerasSetResultat as sr
+import Modules.saveAndDisplayResultKeras as sa
+import Modules.SetDataForKeras as sd
+
+"""
 import Scripts.Modules.KerasSetResultat as sr
 import Scripts.Modules.saveAndDisplayResultKeras as sa
 import Scripts.Modules.SetDataForKeras as sd
+"""
 
 import numpy as np
 # ----------------------------------------------------------------------------------------
@@ -166,6 +178,6 @@ def NetworkCNN(Nb_Epoch,date1,date2):
 # Exemple utilisation fonction , on fixe le nombre d'epo, les dates entre les tirages
 # ---------------------------------------------
 
-NetworkCNN(6000,2004,2019)
+NetworkCNN(60000,2004,2019)
 
 # ---------------------------------------------

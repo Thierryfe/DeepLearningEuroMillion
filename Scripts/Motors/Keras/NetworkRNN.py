@@ -6,9 +6,19 @@ from tensorflow.keras import backend as K
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten,SimpleRNN
 
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
+
+
+import Modules.KerasSetResultat as sr
+import Modules.saveAndDisplayResultKeras as sa
+import Modules.SetDataForKeras as sd
+
+"""
 import Scripts.Modules.KerasSetResultat as sr
 import Scripts.Modules.saveAndDisplayResultKerasRnn as sa
 import Scripts.Modules.SetDataForKeras as sd
+"""
 import numpy as np
 
 # ----------------------------------------------------------------------------------------
