@@ -167,6 +167,6 @@ def NetworkRNN(Nb_epoch,date1,date2):
 # Exemple utilisation fonction , on fixe le nombre d'epo, les dates entre les tirages
 # ---------------------------------------------
 
-NetworkRNN(600,2004,2019)
+NetworkRNN(6000,2004,2019)
 
 # ---------------------------------------------
