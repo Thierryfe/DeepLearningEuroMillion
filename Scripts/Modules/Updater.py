@@ -135,6 +135,3 @@ def update( url=lien_par_defaut):
                     f.writelines(line)
                 Logger.writeLog("Update.checkUpdate()", "INFO", str(len(tableau_de_dates)) + "nouveaux donées de tirages ajoutées au fichier de l'année courante : \n" + str(tableau_de_dates))
                 print()
-
-
-update()
