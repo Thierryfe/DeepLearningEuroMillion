@@ -20,7 +20,7 @@ from Scripts.Modules import Logger
 lien_par_defaut = "http://www.lottology.com/europe/euromillions/?do=past-draws-archive"
 data_dir = os.path.expanduser("~") + "/Documents/DataTirage" + "/dataCSV"
 
-
+## fonction pour télécharger les sources en format CSV. format du nom "euromillions_XXXX.csv". télécharge également les source au format xls : "euromillion_XXXX.xls"
 def downloadFile(annee_de_debut=2004,annee_de_fin=2005,url="http://www.lottology.com/europe/euromillions/?do=past-draws-archive&tab=&as=XLS&year="):
     if(annee_de_debut<=annee_de_fin):
         if((annee_de_debut>=2004)and(annee_de_fin<= datetime.datetime.now().year)):
@@ -43,7 +43,7 @@ def downloadFile(annee_de_debut=2004,annee_de_fin=2005,url="http://www.lottology
     else:
         Logger.writeLog("Updater.downloadFile", "INFO", "annee_de_debut doit etre anterieure a annee_de_fin")
 
-
+## fonction utiliser pour convertir les fichiers du forma xls au format csv    
 def convertXLStoCSV(pathData,pathDataXLS, anne_de_debut,anne_de_fin):
     pathDataCSV = pathData + "/dataCSV"
     if not(os.path.isdir(pathDataCSV)):

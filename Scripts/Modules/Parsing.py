@@ -10,7 +10,8 @@ import numpy as np
 import os.path
 import csv
 
-def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2019):
+## fonction avec parametre en entrée les année des tirages pour les passer en type numpy.matrix() (tableau 2D : [[X1,X2,X3,X4,X5,S1,S2],...,...])
+def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2005):
     resultat = np.matrix([[]],int)
     pathDataCSV = os.path.expanduser("~") + "/Documents/DataTirage" + "/dataCSV"
     countTurnOne = 1
