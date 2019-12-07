@@ -7,7 +7,7 @@ import os
 #---------------- Fonction de set des donnés pour keras ---------------------
 #----------------------------------------------------------------------------
 
-def csvtotabforkeras(date1,date2):
+def SetDataForKeras(date1,date2):
 #---------------------------------------
 
 	#chemin d'acces au fichier csv
@@ -72,6 +72,7 @@ def csvtotabforkeras(date1,date2):
 			#nous avons donc gardé dans ce tableau la que les chiffres correspodnant au tirage
 
 			Xtmp = observations[observations.columns[1:8]].values
+			Xtmp=np.flip(Xtmp,0)
 
 			#dans cette dernière partie du code nous fusionnons simplement le tableau temporaire avec 
 			# le tableau dans lequel tous les resultats seront stocké à la fin
@@ -89,9 +90,8 @@ def csvtotabforkeras(date1,date2):
 #----------------------------------------------------------------------------
 
 #pour utiliser cette fonction il suffide stocker le resultat dans un tableau 
-# et csvtotabforkeras(2004,20XX) et d'appeller la fonction de cette manière 
+# et SetDataForKeras(2004,20XX) et d'appeller la fonction de cette manière
 #exemple d'utilisations:
-
 
 #----------------------------------------------------------------------------
 #----------------------------------------------------------------------------
