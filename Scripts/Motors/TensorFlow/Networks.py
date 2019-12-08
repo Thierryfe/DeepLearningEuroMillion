@@ -5,8 +5,16 @@ Description :
 Script contenant les différentes implémentations de réseaux de neurones à l'aide de TensorFlow
 Developpeur :
 '''
+import os, sys
+sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 
+import Modules.Displayer as d
+import Modules.Parsing as p
+import Modules.Updater as u
+import Modules.Logger
+"""
 from Scripts.Modules import Logger
+"""
 import tensorflow as tf
 import numpy as np
 import time
