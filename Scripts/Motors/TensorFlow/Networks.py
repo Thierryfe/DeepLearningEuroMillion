@@ -5,16 +5,8 @@ Description :
 Script contenant les différentes implémentations de réseaux de neurones à l'aide de TensorFlow
 Developpeur :
 '''
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 
-import Modules.Displayer as d
-import Modules.Parsing as p
-import Modules.Updater as u
-import Modules.Logger
-"""
-from Scripts.Modules import Logger
-"""
+
 import tensorflow as tf
 import numpy as np
 import time
@@ -48,6 +40,7 @@ def prepare_data(data):
         stars.append(star)
     return np.array(numbers), np.array(stars)
 
+
 '''#transfer data to one_hot format
 def to_one_hot(draws,depth):
     draws_one_hot = []
@@ -55,6 +48,7 @@ def to_one_hot(draws,depth):
         draws_one_hot.append(tf.one_hot(draw, depth))
     return draws_one_hot
     # eg : [1,2,3,4,5] to [[1,0,0,0,0],[0,1,0,0,0],[0,0,1,0,0], [0,0,0,1,0], [0,0,0,0,1]]'''
+
 
 #Create a batch size between 2 and 21 to much our data size
 def batch_size (vec):
@@ -70,19 +64,39 @@ def create_batches(train_data_input, train_data_output, input, output,size_train
         X_batches = x_data.reshape(-1, batch_size(x_data), input)    # create the right shape for the batch e.g (10, batchsize, 5)
     ## Create y
         y_data = train_data_output[:size_train-1]
-        y_batches = y_data.reshape(-1, batch_size(x_data), output)
+        y_batches = y_data.reshape(-1, batch_size(y_data), output)
         return X_batches, y_batches
+
+
 
 #start the function here
 def euroMillionRnn(data, datainput, dataoutput, number_inputs, number_outputs,learnin_Rate=0.001, number_of_iterations=10000, number_of_neurons=128, model_name = "not named"):
+
+    """créer le RNN,l'éxecuter, et retourne la prédiction et le log du modèle
+
+        paramètres:
+        data -- toutes les donées de tirages renveoyer par la fonction du parsing setDataForTensorflow()
+        datainput -- les entrées (les cinqs numéros)
+        dataoutput -- les labels qui seront comparés à la sortie avec les predictions du modele
+        number_inputs -- le nombre des entrées ( 5 )
+        number_outputs -- le nombre des sorties ( 5 pour les numéros et 2 pour les numeros etoiles
+        learning rate -- le taux d'apprentissage
+        number_of_iterations -- nombre d'iterations
+        number_of_neurons -- nombre des neurones du modèle
+        model_name -- le nom du model, utilisé da le log
+
+        """
+
     logger = "\n\nloaded trainig data of " + str(len(data)) + " past draws... \n\nInitialization...\n\n"
+
     print("loaded trainig data of " + str(len(data)) + " past draws...\n Initialization...")
-    #return next_prediction
-    #Model Parameters:
+
+    #initialisation des parametres du modèle :
 
     n_input = number_inputs
     numbers_n_output = number_outputs
-    size_train = int(len(data) * 3/4) #the size of the train set
+
+    size_train = int(len(data) * 4/5) #la taille des donées d'apprentissages, ici je choisis de prendre 4/5.
 
     ## Split data
     ###numbers
@@ -92,57 +106,60 @@ def euroMillionRnn(data, datainput, dataoutput, number_inputs, number_outputs,le
     train_numbers_output = dataoutput[:size_train]
     #test_numbers_output = dataoutput[size_train:]
 
-    n_windows = batch_size(train_numbers) #the number of times the network will learn from ( how many examples per iteration)
-                                    #le nombre des tirages n'est pas constant ( les mises à jours ) donc batch size  est utiliser pour
-                                    #fournir un batch (nombre de tirage en entrée par 1 iteration) entre 1 et 20 (le plus grand)
+    n_windows = batch_size(train_numbers) #( combien de tirages par iteration)
+                                             #le nombre des tirages n'est pas constant ( les mises à jours ) donc batch size()  est utiliser pour
+                                             #fournir un batch (nombre de tirage en entrée par 1 iteration) entre 1 et 20 (le plus grand)
 
 
     #Creating X,Y batches for train and test
     X_batches, y_batches = create_batches(train_numbers,train_numbers_output,n_input,numbers_n_output,size_train)
 
-    X_test, y_test = create_batches(train_numbers,train_numbers_output,n_input,numbers_n_output,size_train)
+    X_test, y_test = create_batches(train_numbers,train_numbers_output,n_input,numbers_n_output, size_train)
 
 
     tf.reset_default_graph()
 
-    ##0.Learning Parameters:
+    ##0.Parameteres d'apprentissage :
     learning_rate = learnin_Rate
     iterations = number_of_iterations
     r_neuron = number_of_neurons
 
 
-    ## 1. Construct the tensors
+    ## 1. création des tensors
     X = tf.placeholder(tf.float32, [None,n_windows-1,n_input])
     y_numbers = tf.placeholder(tf.float32, [None,n_windows-1,numbers_n_output])
 
 
-    ## 2. create the model
+    ## 2. creation du model
     basic_cell = tf.contrib.rnn.BasicRNNCell(num_units=r_neuron, activation=tf.nn.relu)
     numbers_rnn_output, numbers_states = tf.nn.dynamic_rnn(basic_cell, X, dtype=tf.float32)
 
 
-    ## 3. numbers rnn configuration
+    ## 3. Configuration du RNN
     numbers_stacked_rnn_output = tf.reshape(numbers_rnn_output, [-1, r_neuron])
     numbers_stacked_outputs = tf.layers.dense(numbers_stacked_rnn_output, numbers_n_output)
     numbers_outputs = tf.reshape(numbers_stacked_outputs, [-1,n_windows-1, numbers_n_output])
 
-    ## Loss + optimization
-    #loss : (prediction - labels)^2
+    ## perte et optimistation:
+      #la perte = (prediction - labels)^2
     loss = tf.reduce_sum(tf.square(numbers_outputs - y_numbers))
 
 
-    #Optimizer: reduire la perte: test sur deux optimasers possibles:
-    #Opt1: with tf.train.AdamOptimizer(learning_rate=learning_rate) mse from 3M to 64K in 4500 iterations
+      #Optimizer: reduire la perte: test sur deux optimasers possibles:
+        #Opt1: with tf.train.AdamOptimizer(learning_rate=learning_rate) mse from 3M to 64K in 4500 iterations
     optimizer = tf.train.AdamOptimizer(learning_rate=learning_rate)
 
-    #Opt2 with tf.train.RMSPropOptimizer(learning_rate=learning_rate) mse from 3M to 50K in 4500 iterations
-    #optimizer = tf.train.RMSPropOptimizer(learning_rate=learning_rate)
+      #Opt2 with tf.train.RMSPropOptimizer(learning_rate=learning_rate) mse from 3M to 50K in 4500 iterations
+       #optimizer = tf.train.RMSPropOptimizer(learning_rate=learning_rate)
+
     training_op = optimizer.minimize(loss)
 
-    #initiallising the variables
+    #initialisation des variables
     init = tf.global_variables_initializer()
 
-    #Model evaluation
+    #l'evaluation du modele
+    numbers_rnn_output.shape
+    y_batches.shape
     correct_pred =tf.equal(tf.argmax(numbers_rnn_output,2), tf.argmax(y_batches, 2))
     accuaracy = tf.reduce_mean(tf.cast(correct_pred, tf.float32))
 
@@ -186,5 +203,3 @@ def euroMillionRnn(data, datainput, dataoutput, number_inputs, number_outputs,le
                   " at iteration: [" + max_iteration.__str__() + "] and predicted " + str(next_number_prediction_int)
 
         return next_number_prediction_int,logger
-
-
