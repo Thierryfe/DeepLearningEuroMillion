@@ -100,7 +100,7 @@ def chekUpdate(url=lien_par_defaut):
                 Logger.writeLog("Update.checkUpdate()", "INFO", "Pas de nouveau tirage sur: "+ lien_par_defaut )
     else: # file doesn't exist
         annee_courante = datetime.date.today().year
-        downloadFile(annee_courante, annee_courante + 1)
+        downloadFile( annee_courante + 1)
         Logger.writeLog("Update.checkUpdate()", "INFO", "téléchargement du fichier de l'année: " + str(annee_courante) + "...")
 
 
