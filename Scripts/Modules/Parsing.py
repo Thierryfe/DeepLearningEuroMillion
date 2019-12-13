@@ -12,11 +12,14 @@ import pandas as pd
 import os.path
 import os
 
+data_dir =  os.path.expanduser("..") +"/"+os.path.expanduser("..") + "/DataTirage"
+pathDataCSV = data_dir + "/dataCSV"
+pathFilesXLS = data_dir + "/dataXLS"
+
 
 
 def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2005):
     resultat = np.matrix([[]],int)
-    pathDataCSV = os.path.expanduser("~") + "/Documents/DataTirage" + "/dataCSV"
     countTurnOne = 1
     for i in range(annee_de_debut, annee_de_fin + 1):
         with open(pathDataCSV + '/euromillions_' + str(i) + '.csv', 'r') as f:
@@ -35,17 +38,16 @@ def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2005):
     return resultat
 
 
-
+setDataForTensorflow()
 # ----------------------------------------------------------------------------
 # ---------------- Fonction de set des donnés pour keras ---------------------
 # ----------------------------------------------------------------------------
 
-def SetDataForKeras(date1, date2):
+def SetDataForKeras(date1=2004, date2=2005):
     # ---------------------------------------
 
     # chemin d'acces au fichier csv
 
-    pathData = os.path.expanduser("~") + "/Documents/DataTirage/dataCSV"
     # -------------------------------
     # verification des dates, pour être sure qu'elles sont valables
 
@@ -66,7 +68,7 @@ def SetDataForKeras(date1, date2):
     # -------------------------------
     # on verifie que le dossier dataCSV existe vraiment pour eviter les problemes
 
-    if (not os.path.isdir(pathData)):
+    if (not os.path.isdir(pathDataCSV)):
         print("dossier avec csv non disponible")
         return
 
@@ -78,7 +80,7 @@ def SetDataForKeras(date1, date2):
     # -------------------------------
     # cette ligne nous permet de nous placer dans le dossier dataCSV, on a vérifié au prealable qu'il exister
 
-    os.chdir(pathData)
+    os.chdir(pathDataCSV)
 
     # -------------------------------
 
@@ -115,6 +117,8 @@ def SetDataForKeras(date1, date2):
 
     return X
 
+
+SetDataForKeras()
 # ---------------------------------------
 # finfonction
 
@@ -132,6 +136,7 @@ def SetDataForKeras(date1, date2):
 
 # Cette Fonction à pour but de prendre un tableau de tirage pour keras, et d'en faire le tableau de reponse attendue
 # utile pour pouvoir entrainer son reseau de neurone
+
 
 def KerasSetResultat(Y):
 #=====================================
