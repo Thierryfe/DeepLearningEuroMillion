@@ -8,12 +8,23 @@ Script ayant pour objectif de contenir tout le programme de tests des divers mot
 Developpeur :
 '''
 
+<<<<<<< Updated upstream
 import numpy as np
 from Scripts.Modules import Parsing
 from Scripts.Motors.TensorFlow import Networks as euroMilNet
 from Scripts.Modules import Logger
 import datetime
 
+=======
+from modules.logger import *
+
+#import Modules.Updater as ud
+#import Modules.Parsing as pa
+#import Modules.Displayer as di
+#import Modules.Logger as lo
+
+#import Motors.Keras.Networks as net
+>>>>>>> Stashed changes
 
 ud.update()
 #import data
@@ -69,3 +80,10 @@ Logger.writeLog("euroMilNet.euroMillionRnn()","INFO", numsLog)
 #the predicted full combination
 print(str(predicted_number) + str(predicted_stars))
 
+<<<<<<< Updated upstream
+=======
+#net.NetworkCNN(60000,2004,2019)
+#net.NetworkRNN(60000,2004,2019)
+
+writeLog('test', 'WARNING', 'coucou')
+>>>>>>> Stashed changes
