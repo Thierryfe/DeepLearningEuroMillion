@@ -26,7 +26,14 @@ import Scripts.Modules.Displayer as d
 import Scripts.Modules.Parsing as p
 import Scripts.Modules.Updater as u
 """
+=======
+import os
+import sys
+>>>>>>> Stashed changes
 
+import modules.displayer as d
+import modules.parsing as p
+import modules.updater as u
 
 #=======================================================================================================================
 #=======================================================================================================================

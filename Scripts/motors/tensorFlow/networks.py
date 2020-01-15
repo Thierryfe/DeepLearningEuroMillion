@@ -10,10 +10,15 @@ Developpeur :
 import tensorflow as tf
 import numpy as np
 import time
+import pandas as panda
+import modules.parsing as parsing
 
 
-
-start_time = time.time()
+def test():
+    data = parsing.setDataForTensorflow(2004,2019)
+    dataPanda = panda.DataFrame(data)
+    print(dataPanda.info())
+#start_time = time.time()
 
 def launch():
     #import data

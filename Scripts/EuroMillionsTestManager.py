@@ -2,8 +2,7 @@
 '''
 Auteur description : Thierry Fernandez
 Date modification : 14/10/20
-Description :
-Script ayant pour objectif de contenir tout le programme de tests des divers moteurs en faisant appel à tous les modules developpés.
+Description : Script ayant pour objectif de contenir tout le programme de tests des divers moteurs en faisant appel à tous les modules developpés.
 
 Developpeur :
 '''
@@ -11,6 +10,7 @@ Developpeur :
 from modules.logger import *
 from modules.displayer import *
 from modules.updater import *
+<<<<<<< Updated upstream
 from motors.keras.networks import *
 from motors.tensorFlow.networks import *
 
