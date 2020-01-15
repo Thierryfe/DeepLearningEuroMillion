@@ -16,8 +16,6 @@ data_dir =  os.path.expanduser("..") + "/DataTirage"
 pathDataCSV = data_dir + "/dataCSV"
 pathFilesXLS = data_dir + "/dataXLS"
 
-
-
 def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2005):
     resultat = np.matrix([[]],int)
     countTurnOne = 1
@@ -37,8 +35,6 @@ def setDataForTensorflow(annee_de_debut=2004,annee_de_fin=2005):
 
     return resultat
 
-
-setDataForTensorflow()
 # ----------------------------------------------------------------------------
 # ---------------- Fonction de set des donnés pour keras ---------------------
 # ----------------------------------------------------------------------------
@@ -117,8 +113,6 @@ def SetDataForKeras(date1=2004, date2=2005):
 
     return X
 
-
-SetDataForKeras()
 # ---------------------------------------
 # finfonction
 
