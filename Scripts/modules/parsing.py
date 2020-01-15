@@ -113,8 +113,6 @@ def SetDataForKeras(date1=2004, date2=2005):
 
     return X
 
-
-SetDataForKeras()
 # ---------------------------------------
 # finfonction
 
