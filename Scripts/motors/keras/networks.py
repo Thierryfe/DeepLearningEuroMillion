@@ -17,9 +17,9 @@ from tensorflow.keras.layers import Dense, Dropout, Flatten,SimpleRNN
 import os, sys
 sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
 
-import Modules.Displayer as d
-import Modules.Parsing as p
-import Modules.Updater as u
+import modules.displayer as d
+import modules.parsing as p
+import modules.updater as u
 
 """
 import Scripts.Modules.Displayer as d
