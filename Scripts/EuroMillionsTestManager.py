@@ -10,6 +10,9 @@ Developpeur :
 
 from modules.logger import *
 from modules.displayer import *
+from modules.updater import *
+
+update()
 
 #import Modules.Updater as ud
 #import Modules.Parsing as pa
@@ -19,6 +22,8 @@ from modules.displayer import *
 #import Motors.Keras.Networks as net
 """
 ud.update()
+
+
 #import data
 annee_actuelle = datetime.datetime.now().year
 data = Parsing.setDataForTensorflow(2004,annee_actuelle)
