@@ -58,7 +58,7 @@ def convertXLStoCSV(pathDataXLS, anne_de_debut,anne_de_fin):
         sh = wb.sheet_by_index(0)
         # creer le fichier 'euromillions-2004.csv'
         your_csv_file = open(pathDataCSV + '/euromillions_' + str(i) + '.csv', 'w')
-        wr = csv.writer(your_csv_file, quoting=csv.QUOTE_ALL)
+        wr = csv.writer(your_csv_file, quoting=csv.QUOTE_NONE)
         for rownum in range(sh.nrows):
             if(rownum>4):
                 row = [sh.row_values(rownum)[0] , int(float(sh.row_values(rownum)[1])), int(float(sh.row_values(rownum)[2])) ,int(float(sh.row_values(rownum)[3])) ,int(float(sh.row_values(rownum)[4])),int(float(sh.row_values(rownum)[5])), int(float(sh.row_values(rownum)[6])) , int(float(sh.row_values(rownum)[7]))  ]
@@ -79,8 +79,8 @@ def checkUpdate(file_path,url=lien_par_defaut):
                     dernier_tirage = row[0]
                     break
 
-            date_dernier_tirage = datetime.datetime.strptime(dernier_tirage, '"%d %B %Y"').date()
-
+            date_dernier_tirage = datetime.datetime.strptime(dernier_tirage, '%d %B %Y').date()
+            print(date_dernier_tirage)
             # recupération de tous les tags td contenants les dates des tirages
             uClient = urlopen(url)
             page_html = uClient.read()
@@ -101,7 +101,7 @@ def checkUpdate(file_path,url=lien_par_defaut):
 
 def update(url=lien_par_defaut):
     file_path = pathDataCSV + "/euromillions_" + str(datetime.date.today().year) + ".csv"
-    if (os.path.isdir(data_dir) and os.path.isfile(file_path)):
+    if (os.path.isfile(file_path)):
         tableau_de_dates=checkUpdate(file_path)
         if len(tableau_de_dates) > 0:  # si on a des dates manquantes
             # recuperer la page web    if(os.path.isfile(file_path)):
