@@ -9,8 +9,17 @@ Developpeur :
 '''
 
 from modules.logger import *
+<<<<<<< HEAD
 
 #net.NetworkCNN(60000,2004,2019)
+=======
+from modules.displayer import *
+from modules.updater import *
+#from motors.tensorFlow.networks import *
+
+update()
+
+>>>>>>> master
 #net.NetworkRNN(60000,2004,2019)
 
 writeLog('test', 'WARNING', 'coucou')
