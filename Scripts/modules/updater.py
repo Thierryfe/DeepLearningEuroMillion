@@ -40,9 +40,9 @@ def downloadFile(annee_de_debut=2004,annee_de_fin=datetime.datetime.now().year,u
                         "" + pathFilesXLS + '/' + fname)
             convertXLStoCSV(pathFilesXLS,annee_de_debut,annee_de_fin)
         else:
-            print("pas de tirages presents pour annee_de_debut et annee_de_fin")
+            print("Il n'y a pas de tirages présents pour les années entrées. \n")
     else:
-        print("annee_de_debut doit etre anterieure a annee_de_fin")
+        print("L'année de début doit etre antérieure a l'annee de fin. \n")
 
 ## fonction utiliser pour convertir les fichiers du forma xls au format csv    
 def convertXLStoCSV(pathDataXLS, anne_de_debut,anne_de_fin):
@@ -127,8 +127,9 @@ def update(url=lien_par_defaut):
                 writer.writerows(tds)
                 for line in content:
                     f.writelines(line)
+            print("Les données des tirages ont été mises à jour. \n")
         else:
-            print("le fichier de l'année courante est à jour, il n'y a pas de nouveaux tirages. \n")
+            print("Le fichier de l'année courante est à jour, il n'y a pas de nouveaux tirages. \n")
     else:
         os.makedirs(data_dir)
         downloadFile()
