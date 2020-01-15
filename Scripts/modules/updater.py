@@ -24,7 +24,7 @@ pathFilesXLS = data_dir + "/dataXLS"
 ## fonction pour télécharger les sources en format CSV. format du nom "euromillions_XXXX.csv". télécharge également les source au format xls : "euromillion_XXXX.xls"
 def downloadFile(annee_de_debut=2004,annee_de_fin=datetime.datetime.now().year,url="http://www.lottology.com/europe/euromillions/?do=past-draws-archive&tab=&as=XLS&year="):
     if(annee_de_debut<=annee_de_fin):
-        if((annee_de_debut>=2004)and(annee_de_fin<= datetime.datetime.now().year)):
+        if((annee_de_debut>=2004) and (annee_de_fin<= datetime.datetime.now().year)):
             #pathData = os.path.expanduser("~") + "/Documents/DataTirage"
             
             if (os.path.isdir(pathFilesXLS)):
@@ -79,7 +79,7 @@ def checkUpdate(file_path,url=lien_par_defaut):
                     dernier_tirage = row[0]
                     break
 
-            date_dernier_tirage = datetime.datetime.strptime(dernier_tirage, '%d %B %Y').date()
+            date_dernier_tirage = datetime.datetime.strptime(dernier_tirage, '"%d %B %Y"').date()
 
             # recupération de tous les tags td contenants les dates des tirages
             uClient = urlopen(url)
