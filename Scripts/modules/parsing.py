@@ -12,7 +12,7 @@ import pandas as pd
 import os.path
 import os
 
-data_dir =  os.path.expanduser("..") +"/"+os.path.expanduser("..") + "/DataTirage"
+data_dir =  os.path.expanduser("..") + "/DataTirage"
 pathDataCSV = data_dir + "/dataCSV"
 pathFilesXLS = data_dir + "/dataXLS"
 
