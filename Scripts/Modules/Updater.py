@@ -138,7 +138,3 @@ def update( url=lien_par_defaut):
 
     else:
         print("le fichier de l'année courante est à jour, il n'y a pas de nouveaux tirages. \n")
-
-
-
-downloadFile(2004,2019)
