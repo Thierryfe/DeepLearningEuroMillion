@@ -12,31 +12,21 @@ import os
 
 
 def writeLog(nom_fonction, niveau, message):
+    date = datetime.date.today()
 
-    try:
-        os.mkdir("logs")
-        date = datetime.date.today()
-        seconde = datetime.datetime.now().time().minute
-        filename = "logs/" + str(date) + "_log" + str(seconde)
-    except FileExistsError:
-        date = datetime.date.today()
-        seconde = datetime.datetime.now().time()
-        filename = "logs/" + str(date) + "_log" + str(seconde)
+    filename = "logs/" + str(date) + ".log"
+
+    logging.basicConfig(filename = filename, level = niveau, format = '[%(asctime)s %(levelname)s] -> %(message)s', datefmt = '%Y-%m-%d %H:%M:%S')
 
     if niveau == "WARNING":
-        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
-        logging.warning(nom_fonction + " " +message)
+        logging.warning(nom_fonction + " " + message)
     elif niveau == "DEBUG":
-        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
-        logging.debug(nom_fonction + " " +message)
+        logging.debug(nom_fonction + " " + message)
     elif niveau == "INFO":
-        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
-        logging.info(nom_fonction + " " +message)
+        logging.info(nom_fonction + " " + message)
     elif niveau == "ERROR":
-        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
-        logging.error(nom_fonction + " " +message)
+        logging.error(nom_fonction + " " + message)
     elif niveau == "CRITICAL":
-        logging.basicConfig(filename=filename, level=niveau, format='%(asctime)s:%(levelname)s:%(message)s')
-        logging.critical(nom_fonction + " " +message)
+        logging.critical(nom_fonction + " " + message)
     else:
-        writeLog("Logs.writeLog()","ERROR",niveau + " n'est pas un niveau valide")
+        writeLog("Logs.writeLog()", "ERROR", niveau + " n'est pas un niveau valide")
