@@ -15,6 +15,7 @@ from Scripts.Modules import Logger
 import datetime
 
 
+ud.update()
 #import data
 annee_actuelle = datetime.datetime.now().year
 data = Parsing.setDataForTensorflow(2004,annee_actuelle)
