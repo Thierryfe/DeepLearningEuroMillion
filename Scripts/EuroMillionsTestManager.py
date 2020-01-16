@@ -17,7 +17,6 @@ from motors.tensorFlow.networks import *
 #Si il n'y a pas d'argument, on passe en mode manuel
 if(len(sys.argv)==1):
 	reponse = input('Voulez vous télécharger (ou mettre à jour) les données de l\'Euromillion (y/n) ')
-	
 	moteur = input('Voulez vous utiliser tensorflow ou keras ?\n')
 	if(moteur=='tensorflow'):
 		print("tensorflow")
@@ -38,6 +37,7 @@ else:
 	print('Il n\'y a pas assez d\'arguments\nVeuillez relancer le script\n')
 	sys.exit()
 
+#On cast les chaines de caractères en int pour qu'elles puissent être utilisées par nos applications
 nbIter=int(nbIter)
 dateDebut=int(dateDebut)
 dateFin=int(dateFin)
