@@ -10,7 +10,6 @@ Developpeur :
 from modules.logger import *
 from modules.displayer import *
 from modules.updater import *
-<<<<<<< Updated upstream
 from motors.keras.networks import *
 from motors.tensorFlow.networks import *
 

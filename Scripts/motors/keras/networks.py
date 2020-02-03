@@ -14,22 +14,8 @@ from tensorflow.keras import backend as K
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten,SimpleRNN
 
-import os, sys
-sys.path.append(os.path.dirname(os.path.dirname(os.path.dirname(os.path.realpath(__file__)))))
-
-import modules.displayer as d
-import modules.parsing as p
-import modules.updater as u
-
-"""
-import Scripts.Modules.Displayer as d
-import Scripts.Modules.Parsing as p
-import Scripts.Modules.Updater as u
-"""
-=======
 import os
 import sys
->>>>>>> Stashed changes
 
 import modules.displayer as d
 import modules.parsing as p
