@@ -20,12 +20,15 @@ def test():
     print(dataPanda.info())
 #start_time = time.time()
 
+if __name__ == "__main__":
+    test()
+
+
 def launch():
     #import data
     annee_actuelle = datetime.datetime.now().year
     data = Parsing.setDataForTensorflow(2004,annee_actuelle)
     print(len(data))
-
 
     #séparation des numéros et numéros étoiles
     numbers, stars = prepare_data(data)

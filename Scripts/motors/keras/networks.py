@@ -13,6 +13,8 @@ from tensorflow import keras
 from tensorflow.keras import backend as K
 from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten,SimpleRNN
+from datetime import datetime
+from tensorflow.keras.utils import plot_model
 
 import os
 import sys
@@ -63,6 +65,7 @@ def NetworkCNN(Nb_Epoch,date1,date2):
 # ---------------------------------------------
 
     M = np.delete(Y, (-1), axis=0)
+    print(M)
 
 # ---------------------------------------------
 #----------- DEFINITION DU RESEAU -------------
@@ -133,10 +136,13 @@ def NetworkCNN(Nb_Epoch,date1,date2):
 # de faire les calculs de correction, permet d'éviter d'avoir trop de calcul
 # On peut le faire à 128 mais pour 600 epoch on est à 4mn d'attente
 # ---------------------------------------------
+    #tf.keras.utils.plot_model(model, to_file=os.path.realpath(__file__) + 'model.png', show_shapes=False, show_layer_names=True, rankdir='TB')
+    #logdir=os.path.realpath(__file__) + "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
+    #tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir)
 
     model.fit(M, tabresultat,
                    epochs=Nb_Epoch,
-                   batch_size=128)
+                   batch_size=128, callbacks=[tensorboard_callback])
 
 # ---------------------------------------------
 # --------- RECUPERATION RESULTAT -------------
@@ -232,7 +238,9 @@ def NetworkRNN(Nb_epoch,date1,date2):
 # ---------------------------------------------
     M = np.reshape(M, (M.shape[0], 1, M.shape[1]))
    # M1 = np.reshape(M1, (M1.shape[0], 1, M1.shape[1]))
-
+    print(M)
+    print("----------------------------")
+    print(M1)
 # ---------------------------------------------
 #----------- DEFINITION DU RESEAU -------------
 # ---------------------------------------------
@@ -245,7 +253,7 @@ def NetworkRNN(Nb_epoch,date1,date2):
 
 # ---------------------------------------------
 #Ajout couche entré en precisant le fait qu'il soit Rnn
-#on regle les unités oour eviter des problémes de typages
+#on regle les unités pour eviter des problémes de typages
 #On donne la dimension des données en entrée un tableau de taille 7
 #Avec comme fonction d'activation une relu
 # ---------------------------------------------
@@ -275,7 +283,7 @@ def NetworkRNN(Nb_epoch,date1,date2):
 # et l'optimizer pour la vitesse, pas très important dans notre cas
 # ---------------------------------------------
 
-    model.compile(loss='mean_squared_error', optimizer='rmsprop')
+    model.compile(loss='mean_squared_error', optimizer='adam', metrics=['accuracy'])
 
 # ---------------------------------------------
 #On passe à l'entrainement, on donne en premier le jeu d'entrainement d'entrée, et celui de sortis
@@ -285,7 +293,7 @@ def NetworkRNN(Nb_epoch,date1,date2):
 # On peut le faire à 1 mais pour 100 epoch on est à 10mn d'attente
 # une bonne taille est 16 permettant pour 100, d'avoir un temps d'attente correct
 # ---------------------------------------------
-
+    tf.keras.utils.plot_model(model, to_file=os.path.realpath(__file__) + 'modelRNN.png', show_shapes=True, show_layer_names=True, rankdir='TB')
     model.fit(M,M1, epochs=Nb_epoch, batch_size=16, verbose=2)
 
 # ---------------------------------------------
@@ -319,7 +327,7 @@ def NetworkRNN(Nb_epoch,date1,date2):
 # ---------------------------------------------
 # permet de récupérer le tirage apres appelle de la fonction
 # ---------------------------------------------
-
+    print(model.summary())
     return intermediate_output[0]
 
 # ---------------------------------------------
