@@ -10,17 +10,25 @@ Developpeur :
 import tensorflow as tf
 import numpy as np
 import time
+import pandas as panda
+import modules.parsing as parsing
 
 
+def test():
+    data = parsing.setDataForTensorflow(2004,2019)
+    dataPanda = panda.DataFrame(data)
+    print(dataPanda.info())
+#start_time = time.time()
 
-start_time = time.time()
+if __name__ == "__main__":
+    test()
+
 
 def launch():
     #import data
     annee_actuelle = datetime.datetime.now().year
     data = Parsing.setDataForTensorflow(2004,annee_actuelle)
     print(len(data))
-
 
     #séparation des numéros et numéros étoiles
     numbers, stars = prepare_data(data)
