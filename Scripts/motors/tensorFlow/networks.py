@@ -10,6 +10,8 @@ Developpeur :
 import tensorflow as tf
 import numpy as np
 import time
+import datetime
+from modules.logger import *
 import pandas as panda
 import modules.parsing as parsing
 
@@ -27,7 +29,7 @@ if __name__ == "__main__":
 def launch():
     #import data
     annee_actuelle = datetime.datetime.now().year
-    data = Parsing.setDataForTensorflow(2004,annee_actuelle)
+    data = setDataForTensorflow(2004,annee_actuelle)
     print(len(data))
 
     #séparation des numéros et numéros étoiles
@@ -71,7 +73,7 @@ def launch():
                                                  model_name= "Stars")
     #logging
     numsLog+=starsLog + "\nTHE FULL PREDICTION ! : \n" + str(predicted_number) + str(predicted_stars)
-    Logger.writeLog("euroMilNet.euroMillionRnn()","INFO", numsLog)
+    writeLog("euroMilNet.euroMillionRnn()","INFO", numsLog)
 
 
     #the predicted full combination
