@@ -11,6 +11,7 @@ from modules.logger import *
 from modules.displayer import *
 from modules.updater import *
 from motors.keras.networks import *
+from motors.keras.myNetwork import *
 from motors.tensorFlow.networks import *
 
 #Si il n'y a pas d'argument, on passe en mode manuel
@@ -21,22 +22,29 @@ if(len(sys.argv)==1):
 		print("tensorflow")
 		reseau='RNN'
 	elif(framework=='keras'):
-		reseau = input('Quel réseau de neurones voulez vous entrainer ? RNN ou CNN\n')
+		reseau = input('Quel réseau de neurones voulez vous entrainer ? RNN ou CNN ou RNN2 (meilleure version de RNN)\n')
+	if(reseau=='RNN2'):
+		nbNeurones = input('Combien de neurones voulez vous sur les couches 2 et 3 ?')
+		nbTirages = input('Combien de tirages voulez vous utiliser en même temps ? (batch size)')
 	nbIter = input('Combien voulez-vous d\'itérations ?\n')
 	dateDebut = input('Veuillez choisir l\'intervalle (date entre 2004 et l\'année courante) sur lequel vous voulez traviller\nDate de début ? ')
 	dateFin = input('Date de fin ? ')
-elif(len(sys.argv)==7):
+elif(len(sys.argv)==9):
 	download=sys.argv[1]
 	framework=sys.argv[2]
 	reseau=sys.argv[3]
-	nbIter=sys.argv[4]
-	dateDebut=sys.argv[5]
-	dateFin=sys.argv[6]
+	nbNeurones=sys.argv[4]
+	nbTirages=sys.argv[5]
+	nbIter=sys.argv[6]
+	dateDebut=sys.argv[7]
+	dateFin=sys.argv[8]
 else:
 	print('Il n\'y a pas assez d\'arguments\nVeuillez relancer le script\n')
 	sys.exit()
 
 #On cast les chaines de caractères en int pour qu'elles puissent être utilisées par nos applications
+nbTirages=int(nbTirages)
+nbNeurones=int(nbNeurones)
 nbIter=int(nbIter)
 dateDebut=int(dateDebut)
 dateFin=int(dateFin)
@@ -53,6 +61,10 @@ if(framework=='keras'):
 		NetworkRNN(nbIter,dateDebut,dateFin)
 	elif(reseau=='CNN'):
 		NetworkCNN(nbIter,dateDebut,dateFin)
+	elif(reseau=='RNN2'):
+		network(nbNeurones,nbIter,nbTirages,dateDebut,dateFin)
+		evaluate(dateDebut,dateFin)
+		predict()
 elif(framework=='tensorflow'):
 	if(reseau=='RNN'):
 		launch()
