@@ -15,6 +15,7 @@ from tensorflow.keras.models import Sequential
 from tensorflow.keras.layers import Dense, Dropout, Flatten,SimpleRNN
 from datetime import datetime
 from tensorflow.keras.utils import plot_model
+from tensorflow.keras.callbacks import TensorBoard
 
 import os
 import sys
@@ -136,9 +137,9 @@ def NetworkCNN(Nb_Epoch,date1,date2):
 # de faire les calculs de correction, permet d'éviter d'avoir trop de calcul
 # On peut le faire à 128 mais pour 600 epoch on est à 4mn d'attente
 # ---------------------------------------------
-    #tf.keras.utils.plot_model(model, to_file=os.path.realpath(__file__) + 'model.png', show_shapes=False, show_layer_names=True, rankdir='TB')
-    #logdir=os.path.realpath(__file__) + "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
-    #tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir)
+    tf.keras.utils.plot_model(model, to_file=os.path.realpath(__file__) + 'model.png', show_shapes=False, show_layer_names=True, rankdir='TB')
+    logdir=os.path.realpath(__file__) + "logs/fit/" + datetime.now().strftime("%Y%m%d-%H%M%S")
+    tensorboard_callback = keras.callbacks.TensorBoard(log_dir=logdir)
 
     model.fit(M, tabresultat,
                    epochs=Nb_Epoch,

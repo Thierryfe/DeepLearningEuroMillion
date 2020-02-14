@@ -69,7 +69,7 @@ if(framework=='keras'):
 		predict()
 elif(framework=='tensorflow'):
 	if(reseau=='RNN'):
-		launch()
+		launch(nbTirages,dateDebut,dateFin)
 	elif(reseau=='CNN'):
 		print('Il n\'est pas possible de possible de faire du CNN avec notre moteur tensorflow (préférez keras pour du CNN)')
 else:
