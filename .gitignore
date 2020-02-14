@@ -3,3 +3,12 @@
 *.pyc
 /DataTirage
 __pycache__/
+Scripts/accuracys/
+
+Scripts/models/
+
+Scripts/plots/
+
+Scripts/scores/
+
+Scripts/tirages/
