@@ -12,24 +12,24 @@ import numpy as np
 import time
 import datetime
 from modules.logger import *
+from modules.parsing import *
 import pandas as panda
-import modules.parsing as parsing
+
 
 
 def test():
     data = parsing.setDataForTensorflow(2004,2019)
     dataPanda = panda.DataFrame(data)
     print(dataPanda.info())
-#start_time = time.time()
+start_time=time.time()
 
 if __name__ == "__main__":
     test()
 
 
-def launch():
+def launch(nb_iterations=200,dateDebut=2004,dateFin=2020):
     #import data
-    annee_actuelle = datetime.datetime.now().year
-    data = setDataForTensorflow(2004,annee_actuelle)
+    data = setDataForTensorflow(dateDebut,dateFin)
     print(len(data))
 
     #séparation des numéros et numéros étoiles
@@ -46,7 +46,6 @@ def launch():
 
     #parametres d'aaprentissage
     learning_rate = 0.001
-    nb_iterations = 200
     nb_RNeurons = 128
 
 
@@ -120,21 +119,21 @@ def batch_size (vec):
     for i in range(2, 21):
         if len(vec) % i == 0:
             bs = i
-    return bs
+    return 10
 
 def create_batches(train_data_input, train_data_output, input, output,size_train):
     ## Create X
         x_data = train_data_input[:size_train-1] # Select all the training instance minus one day
-        X_batches = x_data.reshape(-1, batch_size(x_data), input)    # create the right shape for the batch e.g (10, batchsize, 5)
+        X_batches = x_data.reshape(-1, 1, input)    # create the right shape for the batch e.g (10, batchsize, 5)
     ## Create y
         y_data = train_data_output[:size_train-1]
-        y_batches = y_data.reshape(-1, batch_size(y_data), output)
+        y_batches = y_data.reshape(-1, 1, output)
         return X_batches, y_batches
 
 
 
 #start the function here
-def euroMillionRnn(data, datainput, dataoutput, number_inputs, number_outputs,learnin_Rate=0.001, number_of_iterations=10000, number_of_neurons=128, model_name = "not named"):
+def euroMillionRnn(data, datainput, dataoutput, number_inputs, number_outputs,learnin_Rate=0.001, number_of_iterations=100, number_of_neurons=128, model_name = "not named"):
 
     """créer le RNN,l'éxecuter, et retourne la prédiction et le log du modèle
 
@@ -170,7 +169,7 @@ def euroMillionRnn(data, datainput, dataoutput, number_inputs, number_outputs,le
     train_numbers_output = dataoutput[:size_train]
     #test_numbers_output = dataoutput[size_train:]
 
-    n_windows = batch_size(train_numbers) #( combien de tirages par iteration)
+    n_windows = 2 #( combien de tirages par iteration)
                                              #le nombre des tirages n'est pas constant ( les mises à jours ) donc batch size()  est utiliser pour
                                              #fournir un batch (nombre de tirage en entrée par 1 iteration) entre 1 et 20 (le plus grand)
 
@@ -237,7 +236,8 @@ def euroMillionRnn(data, datainput, dataoutput, number_inputs, number_outputs,le
         min_mse =float("inf")
         max_acc = 0.0
         for iters in range(iterations):
-            _, acc, los = sess.run([training_op, accuaracy, loss], feed_dict={X: X_batches, y_numbers: y_batches})
+            print(X)
+            _, acc, los = sess.run([training_op, accuaracy, loss], feed_dict={X:X_batches, y_numbers:y_batches})
             if iters % 500 == 0:
                 mse = loss.eval(feed_dict={X: X_batches, y_numbers: y_batches})
                 loss_total += los
