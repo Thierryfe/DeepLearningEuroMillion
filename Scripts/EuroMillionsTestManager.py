@@ -14,6 +14,8 @@ from motors.keras.networks import *
 from motors.keras.myNetwork import *
 from motors.tensorFlow.networks import *
 
+nbTirages=0
+nbNeurones=0
 #Si il n'y a pas d'argument, on passe en mode manuel
 if(len(sys.argv)==1):
 	download = input('Voulez vous télécharger (ou mettre à jour) les données de l\'Euromillion (y/n) ?')
